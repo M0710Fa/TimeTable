@@ -1,6 +1,7 @@
 package com.example.timetable.ui.main
 
 import androidx.lifecycle.ViewModel
+import com.example.timetable.model.source.Subject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,4 +38,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun addSubject(subject: Subject){
+
+    }
 }
