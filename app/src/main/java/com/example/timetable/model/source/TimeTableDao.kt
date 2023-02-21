@@ -13,7 +13,7 @@ interface TimeTableDao {
     @Delete
     suspend fun deleteSubject(subject: Subject)
 
-    @Query("SELECT * FROM subjects WHERE id = :key")
+    @Query("SELECT * FROM subjects WHERE id = :id")
     suspend fun getSubject(id: Int):Subject
 
     @Query("SELECT * FROM subjects")
