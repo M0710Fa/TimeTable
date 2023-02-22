@@ -12,6 +12,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object TimeTableDatabaseModule {
+    @Provides
+    fun provideTimeTableDao(database: TimeTableDatabase): TimeTableDao{
+        return database.timeTableDao()
+    }
+
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): TimeTableDatabase{
