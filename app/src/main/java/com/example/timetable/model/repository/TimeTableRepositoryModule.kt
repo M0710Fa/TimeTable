@@ -7,7 +7,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-class TimeTableRepositoryModule {
+object TimeTableRepositoryModule {
     @Provides
     fun provideTimeTableRepository(timeTableRepositoryImpl: TimeTableRepositoryImpl): TimeTableRepository {
         return timeTableRepositoryImpl
