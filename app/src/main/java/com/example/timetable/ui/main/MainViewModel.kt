@@ -16,6 +16,7 @@ data class MainUiState(
     val subjectName: String = "",
     val classRoom: String = "",
     val teacher:String = "",
+    val subjects: List<Subject> = emptyList(),
 )
 
 @HiltViewModel
@@ -24,6 +25,10 @@ class MainViewModel @Inject constructor(
 ): ViewModel() {
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState
+
+    init {
+        getAllSubject()
+    }
 
     fun updateSubjectName(newSubjectName: String){
         _uiState.update {
@@ -43,6 +48,18 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun getAllSubject() = viewModelScope.launch {
+        val TAG = "GET_SUBJECT"
+        try {
+            timeTableRepository.getSubjects().collect{ subjects ->
+                _uiState.update {
+                    it.copy(subjects = subjects)
+                }
+            }
+        }catch (e: Exception){
+            Log.e(TAG, "Failure Get Subject with $e")
+        }
+    }
     fun addSubject() = viewModelScope.launch {
         val TAG = "ADD_SUBJECT"
 

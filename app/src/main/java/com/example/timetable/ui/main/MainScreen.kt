@@ -1,11 +1,9 @@
 package com.example.timetable.ui.main
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -15,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.timetable.R
+import com.example.timetable.model.source.Subject
 
 @Composable
 fun MainScreen(
@@ -23,19 +22,29 @@ fun MainScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    AddSubjectScreen(
-        subjectName = uiState.subjectName,
-        classRoom = uiState.classRoom,
-        teacher = uiState.teacher,
-        updateSubjectName = viewModel::updateSubjectName,
-        updateClassRoom = viewModel::updateClassRoom,
-        updateTeacher = viewModel::updateTeacher,
-        registerSubject = viewModel::addSubject
-    )
+    Column(
+    ) {
+        AddSubjectContent(
+            subjectName = uiState.subjectName,
+            classRoom = uiState.classRoom,
+            teacher = uiState.teacher,
+            updateSubjectName = viewModel::updateSubjectName,
+            updateClassRoom = viewModel::updateClassRoom,
+            updateTeacher = viewModel::updateTeacher,
+            registerSubject = viewModel::addSubject,
+        )
+
+        DisplaySubjects(
+            subjects = uiState.subjects,
+        )
+
+    }
+
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddSubjectScreen(
+fun AddSubjectContent(
     modifier: Modifier = Modifier,
     subjectName: String,
     classRoom: String,
@@ -48,13 +57,19 @@ fun AddSubjectScreen(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(8.dp)
     ) {
 
         val textFieldModifier = modifier
-            .align(Alignment.CenterHorizontally).padding(8.dp)
+            .align(Alignment.CenterHorizontally)
 
-        Text(text = "科目登録")
+
+
+        Text(
+            text = "科目の登録",
+            style = MaterialTheme.typography.titleLarge,
+            modifier = modifier.padding(8.dp)
+        )
         OutlinedTextField(
             value = subjectName,
             onValueChange = { updateSubjectName(it) },
@@ -84,11 +99,61 @@ fun AddSubjectScreen(
             onClick = {
                 registerSubject()
             },
-            modifier = modifier.align(Alignment.End).padding(8.dp)
+            modifier = modifier
+                .align(Alignment.End)
+                .padding(8.dp)
         ) {
             Text(text = "科目登録")
         }
-
-
     }
+}
+
+@Composable
+fun DisplaySubjects(
+    modifier: Modifier = Modifier,
+    subjects: List<Subject>,
+) {
+    Column(
+        modifier = modifier.padding(8.dp)
+    ) {
+        Text(
+            text = "登録された科目一覧",
+            style = MaterialTheme.typography.titleLarge,
+        )
+        LazyColumn(
+            modifier = modifier.padding(8.dp),
+        ){
+            items(subjects){
+                SubjectContent(subject = it)
+            }
+        }
+    }
+}
+
+@Composable
+fun SubjectContent(
+    modifier: Modifier = Modifier,
+    subject : Subject,
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        content = {
+            Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)){
+                Column() {
+                    Text(
+                        text = subject.subjectName,
+                        modifier = modifier.padding(8.dp)
+                    )
+                    Row() {
+                        Text(text = subject.classRoom ?: "")
+                        Spacer(modifier = modifier.width(16.dp))
+                        Text(text = subject.teacher ?: "")
+                    }
+                }
+            }
+
+        }
+    )
 }
