@@ -3,6 +3,7 @@ package com.example.timetable.ui.main
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,6 +30,7 @@ fun MainScreen(
         updateSubjectName = viewModel::updateSubjectName,
         updateClassRoom = viewModel::updateClassRoom,
         updateTeacher = viewModel::updateTeacher,
+        registerSubject = viewModel::addSubject
     )
 }
 
@@ -41,12 +43,17 @@ fun AddSubjectScreen(
     updateSubjectName:(String) -> Unit,
     updateClassRoom:(String) -> Unit,
     updateTeacher:(String) -> Unit,
+    registerSubject:() -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
+
+        val textFieldModifier = modifier
+            .align(Alignment.CenterHorizontally).padding(8.dp)
+
         Text(text = "科目登録")
         OutlinedTextField(
             value = subjectName,
@@ -54,9 +61,7 @@ fun AddSubjectScreen(
             label = {
                 Text(text = stringResource(id = R.string.subject_name))
             },
-            modifier = modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(8.dp)
+            modifier = textFieldModifier
         )
         OutlinedTextField(
             value = classRoom,
@@ -64,9 +69,7 @@ fun AddSubjectScreen(
             label = {
                 Text(text = stringResource(id = R.string.class_room))
             },
-            modifier = modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(8.dp)
+            modifier = textFieldModifier
         )
         OutlinedTextField(
             value = teacher,
@@ -74,9 +77,18 @@ fun AddSubjectScreen(
             label = {
                 Text(text = stringResource(id = R.string.teacher))
             },
-            modifier = modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(8.dp)
+            modifier = textFieldModifier
         )
+
+        Button(
+            onClick = {
+                registerSubject()
+            },
+            modifier = modifier.align(Alignment.End).padding(8.dp)
+        ) {
+            Text(text = "科目登録")
+        }
+
+
     }
 }
