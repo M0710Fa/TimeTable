@@ -1,6 +1,10 @@
 package com.example.timetable.model.source
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -32,7 +36,7 @@ interface TimeTableDao {
      *  @return specified subject
      * */
     @Query("SELECT * FROM subjects WHERE id = :id")
-    suspend fun getSubject(id: Int):Subject
+    suspend fun getSubject(id: Int): Subject
 
     /**
      *  observe all subjects in subjects_table

@@ -15,14 +15,14 @@ import javax.inject.Inject
 data class MainUiState(
     val subjectName: String = "",
     val classRoom: String = "",
-    val teacher:String = "",
+    val teacher: String = "",
     val subjects: List<Subject> = emptyList(),
 )
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val timeTableRepository: TimeTableRepository
-): ViewModel() {
+    private val timeTableRepository: TimeTableRepository,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState
 
@@ -30,19 +30,19 @@ class MainViewModel @Inject constructor(
         getAllSubject()
     }
 
-    fun updateSubjectName(newSubjectName: String){
+    fun updateSubjectName(newSubjectName: String) {
         _uiState.update {
             it.copy(subjectName = newSubjectName)
         }
     }
 
-    fun updateClassRoom(newClassRoom: String){
+    fun updateClassRoom(newClassRoom: String) {
         _uiState.update {
             it.copy(classRoom = newClassRoom)
         }
     }
 
-    fun updateTeacher(newTeacher: String){
+    fun updateTeacher(newTeacher: String) {
         _uiState.update {
             it.copy(teacher = newTeacher)
         }
@@ -51,12 +51,12 @@ class MainViewModel @Inject constructor(
     fun getAllSubject() = viewModelScope.launch {
         val TAG = "GET_SUBJECT"
         try {
-            timeTableRepository.getSubjects().collect{ subjects ->
+            timeTableRepository.getSubjects().collect { subjects ->
                 _uiState.update {
                     it.copy(subjects = subjects)
                 }
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.e(TAG, "Failure Get Subject with $e")
         }
     }
@@ -66,18 +66,21 @@ class MainViewModel @Inject constructor(
         try {
             val newSubject = Subject(
                 subjectName = _uiState.value.subjectName.let {
-                    if (it.isEmpty()) throw CollectSubjectError()
-                    else _uiState.value.subjectName
+                    if (it.isEmpty()) {
+                        throw CollectSubjectError()
+                    } else {
+                        _uiState.value.subjectName
+                    }
                 },
                 classRoom = _uiState.value.classRoom,
                 teacher = _uiState.value.teacher,
-                subjectColor = ""
+                subjectColor = "",
             )
             Log.i(TAG, "Success Insert Subject")
             timeTableRepository.addSubject(newSubject)
-        }catch (e: CollectSubjectError){
+        } catch (e: CollectSubjectError) {
             Log.e(TAG, "Failure Insert Subject with $e")
-        } catch (e: Exception){
+        } catch (e: Exception) {
             Log.e(TAG, "Failure Insert Subject with $e")
         }
     }
