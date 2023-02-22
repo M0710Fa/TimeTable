@@ -1,9 +1,20 @@
 package com.example.timetable.ui.main
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -22,8 +33,7 @@ fun MainScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Column(
-    ) {
+    Column() {
         AddSubjectContent(
             subjectName = uiState.subjectName,
             classRoom = uiState.classRoom,
@@ -37,9 +47,7 @@ fun MainScreen(
         DisplaySubjects(
             subjects = uiState.subjects,
         )
-
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,26 +57,23 @@ fun AddSubjectContent(
     subjectName: String,
     classRoom: String,
     teacher: String,
-    updateSubjectName:(String) -> Unit,
-    updateClassRoom:(String) -> Unit,
-    updateTeacher:(String) -> Unit,
-    registerSubject:() -> Unit,
+    updateSubjectName: (String) -> Unit,
+    updateClassRoom: (String) -> Unit,
+    updateTeacher: (String) -> Unit,
+    registerSubject: () -> Unit,
 ) {
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp),
     ) {
-
         val textFieldModifier = modifier
             .align(Alignment.CenterHorizontally)
-
-
 
         Text(
             text = "科目の登録",
             style = MaterialTheme.typography.titleLarge,
-            modifier = modifier.padding(8.dp)
+            modifier = modifier.padding(8.dp),
         )
         OutlinedTextField(
             value = subjectName,
@@ -76,7 +81,7 @@ fun AddSubjectContent(
             label = {
                 Text(text = stringResource(id = R.string.subject_name))
             },
-            modifier = textFieldModifier
+            modifier = textFieldModifier,
         )
         OutlinedTextField(
             value = classRoom,
@@ -84,7 +89,7 @@ fun AddSubjectContent(
             label = {
                 Text(text = stringResource(id = R.string.class_room))
             },
-            modifier = textFieldModifier
+            modifier = textFieldModifier,
         )
         OutlinedTextField(
             value = teacher,
@@ -92,7 +97,7 @@ fun AddSubjectContent(
             label = {
                 Text(text = stringResource(id = R.string.teacher))
             },
-            modifier = textFieldModifier
+            modifier = textFieldModifier,
         )
 
         Button(
@@ -101,7 +106,7 @@ fun AddSubjectContent(
             },
             modifier = modifier
                 .align(Alignment.End)
-                .padding(8.dp)
+                .padding(8.dp),
         ) {
             Text(text = "科目登録")
         }
@@ -114,7 +119,7 @@ fun DisplaySubjects(
     subjects: List<Subject>,
 ) {
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(8.dp),
     ) {
         Text(
             text = "登録された科目一覧",
@@ -122,8 +127,8 @@ fun DisplaySubjects(
         )
         LazyColumn(
             modifier = modifier.padding(8.dp),
-        ){
-            items(subjects){
+        ) {
+            items(subjects) {
                 SubjectContent(subject = it)
             }
         }
@@ -133,18 +138,18 @@ fun DisplaySubjects(
 @Composable
 fun SubjectContent(
     modifier: Modifier = Modifier,
-    subject : Subject,
+    subject: Subject,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(4.dp),
         content = {
-            Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)){
+            Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
                 Column() {
                     Text(
                         text = subject.subjectName,
-                        modifier = modifier.padding(8.dp)
+                        modifier = modifier.padding(8.dp),
                     )
                     Row() {
                         Text(text = subject.classRoom ?: "")
@@ -153,7 +158,6 @@ fun SubjectContent(
                     }
                 }
             }
-
-        }
+        },
     )
 }

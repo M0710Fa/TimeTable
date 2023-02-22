@@ -7,9 +7,8 @@ import javax.inject.Inject
 
 class TimeTableRepositoryImpl @Inject constructor(
     private val timeTableDao: TimeTableDao,
-): TimeTableRepository {
+) : TimeTableRepository {
     override suspend fun addSubject(subject: Subject) = timeTableDao.insertSubject(subject)
 
     override fun getSubjects(): Flow<List<Subject>> = timeTableDao.getAllSubjects()
-
 }
