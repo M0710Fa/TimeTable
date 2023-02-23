@@ -36,7 +36,6 @@ fun TimeTable(
         ) {
             val tableWeight = 1f
             Spacer(modifier = modifier.width(timesWidth))
-
             timeTable.forEach { daily ->
                 Text(
                     text = daily.week,
