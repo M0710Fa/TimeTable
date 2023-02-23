@@ -31,49 +31,49 @@ fun TimeTable(
     val tableWeight = 1f
     Column() {
         Row(
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
         ) {
             Text(
                 text = "",
-                modifier = modifier.width(timesWeight)
+                modifier = modifier.width(timesWeight),
             )
             timeTable.forEach { daily ->
                 Text(
                     text = daily.week,
-                    modifier = modifier.weight(tableWeight)
+                    modifier = modifier.weight(tableWeight),
                 )
             }
         }
-        Row (
-            modifier = modifier.fillMaxWidth()
-        ){
-           Box(
-               modifier = modifier
-                   .fillMaxHeight()
-                   .width(timesWeight)
-           ){
-               Column(
-                   modifier = modifier.fillMaxWidth()
-               ) {
-                   for(i in 1.. timeTable[0].subjects.size) { 
-                       Text(
-                           text = i.toString(),
-                           modifier = modifier.weight(.1f)
-                       )
-                   }
-               }
-           }
-           Box(
-               modifier = modifier
-                   .weight(tableWeight)
-                   .fillMaxHeight()
-           ) {
-               Row() {
-                   timeTable.forEach {daily ->
-                       DailyColumn(dailySubject = daily.subjects, modifier = modifier.weight(.1f))
-                   }
-               }
-           } 
+        Row(
+            modifier = modifier.fillMaxWidth(),
+        ) {
+            Box(
+                modifier = modifier
+                    .fillMaxHeight()
+                    .width(timesWeight),
+            ) {
+                Column(
+                    modifier = modifier.fillMaxWidth(),
+                ) {
+                    for (i in 1..timeTable[0].subjects.size) {
+                        Text(
+                            text = i.toString(),
+                            modifier = modifier.weight(.1f),
+                        )
+                    }
+                }
+            }
+            Box(
+                modifier = modifier
+                    .weight(tableWeight)
+                    .fillMaxHeight(),
+            ) {
+                Row() {
+                    timeTable.forEach { daily ->
+                        DailyColumn(dailySubject = daily.subjects, modifier = modifier.weight(.1f))
+                    }
+                }
+            }
         }
     }
 }
@@ -84,7 +84,7 @@ fun DailyColumn(
     dailySubject: List<Subject>,
 ) {
     Column(
-        modifier = modifier
+        modifier = modifier,
     ) {
         dailySubject.forEach {
             SubjectCard(subject = it, modifier = modifier.weight(.1f))
