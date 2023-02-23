@@ -27,7 +27,7 @@ fun TimeTable(
     modifier: Modifier = Modifier,
     timeTable: List<DailyTables>,
 ) {
-    val timesWeight = 20.dp
+    val timesWidth = 20.dp
     val tableWeight = 1f
     Column() {
         Row(
@@ -35,7 +35,7 @@ fun TimeTable(
         ) {
             Text(
                 text = "",
-                modifier = modifier.width(timesWeight),
+                modifier = modifier.width(timesWidth),
             )
             timeTable.forEach { daily ->
                 Text(
@@ -50,7 +50,7 @@ fun TimeTable(
             Box(
                 modifier = modifier
                     .fillMaxHeight()
-                    .width(timesWeight),
+                    .width(timesWidth),
             ) {
                 Column(
                     modifier = modifier.fillMaxWidth(),
