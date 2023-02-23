@@ -1,4 +1,4 @@
-package com.example.timetable.ui.main
+package com.example.timetable.ui.addSubject
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,7 +27,7 @@ import com.example.timetable.R
 import com.example.timetable.model.source.Subject
 
 @Composable
-fun MainScreen(
+fun AddSubjectScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
 ) {

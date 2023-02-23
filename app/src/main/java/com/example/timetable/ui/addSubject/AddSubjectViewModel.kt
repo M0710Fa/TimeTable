@@ -1,4 +1,4 @@
-package com.example.timetable.ui.main
+package com.example.timetable.ui.addSubject
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
