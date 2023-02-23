@@ -2,6 +2,8 @@ name: Ktlint
 
 on:
   pull_request:
+    paths-ignore:
+      - ".github/**"
 
 jobs:
   build:
