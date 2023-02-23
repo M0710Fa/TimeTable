@@ -50,7 +50,7 @@ fun TimeTable(
             modifier = modifier.fillMaxWidth(),
         ) {
             Column(
-                modifier = modifier.width(timesWidth)
+                modifier = modifier.width(timesWidth),
             ) {
                 for (i in 1..timeTable[0].subjects.size) {
                     Text(
