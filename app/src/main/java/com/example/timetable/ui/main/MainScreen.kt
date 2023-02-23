@@ -1,16 +1,17 @@
 package com.example.timetable.ui.main
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.timetable.model.source.DailyTables
 import com.example.timetable.model.source.Subject
@@ -28,50 +29,42 @@ fun TimeTable(
     timeTable: List<DailyTables>,
 ) {
     val timesWidth = 20.dp
-    val tableWeight = 1f
     Column() {
+        // Top Row Display Weeks
         Row(
             modifier = modifier.fillMaxWidth(),
         ) {
-            Text(
-                text = "",
-                modifier = modifier.width(timesWidth),
-            )
+            val tableWeight = 1f
+            Spacer(modifier = modifier.width(timesWidth))
+
             timeTable.forEach { daily ->
                 Text(
                     text = daily.week,
                     modifier = modifier.weight(tableWeight),
+                    textAlign = TextAlign.Center,
                 )
             }
         }
+
+        // Display TimeTable
         Row(
             modifier = modifier.fillMaxWidth(),
         ) {
-            Box(
-                modifier = modifier
-                    .fillMaxHeight()
-                    .width(timesWidth),
+            Column(
+                modifier = modifier.width(timesWidth)
             ) {
-                Column(
-                    modifier = modifier.fillMaxWidth(),
-                ) {
-                    for (i in 1..timeTable[0].subjects.size) {
-                        Text(
-                            text = i.toString(),
-                            modifier = modifier.weight(.1f),
-                        )
-                    }
+                for (i in 1..timeTable[0].subjects.size) {
+                    Text(
+                        text = i.toString(),
+                        modifier = modifier
+                            .wrapContentHeight()
+                            .weight(.1f),
+                    )
                 }
             }
-            Box(
-                modifier = modifier
-                    .weight(tableWeight)
-                    .fillMaxHeight(),
-            ) {
-                Row() {
-                    timeTable.forEach { daily ->
-                        DailyColumn(dailySubject = daily.subjects, modifier = modifier.weight(.1f))
-                    }
+            Row() {
+                timeTable.forEach { daily ->
+                    DailyColumn(dailySubject = daily.subjects, modifier = modifier.weight(.1f))
                 }
             }
         }
