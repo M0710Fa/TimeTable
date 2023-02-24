@@ -93,7 +93,7 @@ fun SubjectCard(
             modifier = modifier
                 .fillMaxSize()
                 .padding(4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 text = subject.subjectName,
