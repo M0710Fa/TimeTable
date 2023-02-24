@@ -14,10 +14,8 @@ fun MainScreen(
     val weeksHeight = 32.dp
     val timesWidth = 24.dp
 
-    Box(){
+    Box() {
         BlankTable(timeTable = MockTimeTable.timetable, weeksHeight = weeksHeight, timesWidth = timesWidth)
         TimeTable(timeTable = MockTimeTable.timetable, weeksHeight = weeksHeight, timesWidth = timesWidth)
     }
 }
-
-

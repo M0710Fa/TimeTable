@@ -31,12 +31,12 @@ fun BlankTable(
     Column(
         modifier = modifier
             .background(
-                color = Color.LightGray
+                color = Color.LightGray,
             ),
     ) {
         // Top Row Display Weeks
         Row(
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
         ) {
             val tableWeight = 1f
             Spacer(modifier = modifier.width(timesWidth))
@@ -48,7 +48,7 @@ fun BlankTable(
                 ) {
                     Text(
                         text = daily.week,
-                        modifier = modifier.align(Alignment.Center)
+                        modifier = modifier.align(Alignment.Center),
                     )
                 }
             }
@@ -59,8 +59,7 @@ fun BlankTable(
             modifier = modifier.fillMaxWidth(),
         ) {
             Column(
-                modifier = modifier.width(timesWidth)
-                ,
+                modifier = modifier.width(timesWidth),
             ) {
                 for (i in 1..timeTable[0].subjects.size) {
                     Text(
@@ -72,10 +71,9 @@ fun BlankTable(
                     )
                 }
             }
-            Row(
-            ) {
+            Row() {
                 timeTable.forEach { daily ->
-                    Box(modifier = modifier.weight(.1f)){
+                    Box(modifier = modifier.weight(.1f)) {
                         BlankColumn()
                     }
                 }
@@ -88,9 +86,8 @@ fun BlankTable(
 fun BlankColumn(
     modifier: Modifier = Modifier,
 ) {
-    Column(
-    ) {
-        for(i in 1..5) {
+    Column() {
+        for (i in 1..5) {
             BlackSubject(modifier = modifier.weight(.1f))
         }
     }
@@ -106,7 +103,7 @@ fun BlackSubject(
             .padding(2.dp)
             .background(
                 color = Color.White,
-                shape = RoundedCornerShape(4.dp)
-            )
+                shape = RoundedCornerShape(4.dp),
+            ),
     )
 }
