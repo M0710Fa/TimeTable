@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.timetable.model.source.DailyTables
 import com.example.timetable.model.source.Subject
@@ -22,12 +24,13 @@ import com.example.timetable.model.source.Subject
 fun TimeTable(
     modifier: Modifier = Modifier,
     timeTable: List<DailyTables>,
+    weeksHeight: Dp,
+    timesWidth: Dp,
 ) {
-    val timesWidth = 20.dp
     Column() {
         Spacer(
             modifier = modifier
-                .fillMaxWidth().height(24.dp)
+                .fillMaxWidth().height(weeksHeight)
         )
 
         // Display TimeTable
@@ -76,7 +79,8 @@ fun SubjectCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(4.dp),
+            .padding(2.dp),
+        shape = RoundedCornerShape(4.dp)
     ) {
         Column(
             modifier = modifier
