@@ -32,7 +32,8 @@ fun BlankTable(
         modifier = modifier
             .background(
                 color = Color.LightGray,
-            ),
+            )
+            .padding(4.dp),
     ) {
         // Top Row Display Weeks
         Row(

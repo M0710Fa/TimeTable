@@ -31,7 +31,9 @@ fun TimeTable(
     weeksHeight: Dp,
     timesWidth: Dp,
 ) {
-    Column() {
+    Column(
+        modifier = modifier.padding(4.dp),
+    ) {
         Spacer(
             modifier = modifier
                 .fillMaxWidth().height(weeksHeight),
