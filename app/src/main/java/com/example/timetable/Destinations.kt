@@ -5,14 +5,13 @@ sealed class Destinations(
     val title: String,
 ) {
 
-    object TimeTableScreen: Destinations(
+    object TimeTableScreen : Destinations(
         route = "timetable_screen",
         title = "時間割り",
     )
 
-    object SubjectsScreen: Destinations(
+    object SubjectsScreen : Destinations(
         route = "subjects_screen",
         title = "科目管理",
     )
-
 }

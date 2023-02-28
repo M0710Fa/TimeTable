@@ -17,12 +17,12 @@ fun AppNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = startDestination
-    ){
-        composable(route = Destinations.TimeTableScreen.route){
+        startDestination = startDestination,
+    ) {
+        composable(route = Destinations.TimeTableScreen.route) {
             MainScreen()
         }
-        composable(route = Destinations.SubjectsScreen.route){
+        composable(route = Destinations.SubjectsScreen.route) {
             AddSubjectScreen()
         }
     }
