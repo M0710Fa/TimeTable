@@ -1,14 +1,14 @@
-package com.example.timetable.ui.main
+package com.example.timetable.ui.table
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.timetable.ui.main.timeTable.BlankTable
-import com.example.timetable.ui.main.timeTable.TimeTable
+import com.example.timetable.ui.table.timeTable.BlankTable
+import com.example.timetable.ui.table.timeTable.TimeTable
 
 @Composable
-fun MainScreen(
+fun TableScreen(
     modifier: Modifier = Modifier,
 ) {
     val weeksHeight = 32.dp
