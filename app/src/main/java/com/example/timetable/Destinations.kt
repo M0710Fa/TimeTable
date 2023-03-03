@@ -1,18 +1,20 @@
 package com.example.timetable
 
+import androidx.annotation.StringRes
+
 sealed class Destinations(
+    @StringRes val title: Int,
     val route: String,
-    val title: String,
 ) {
 
     object TableScreen : Destinations(
+        title = R.string.timetable_title,
         route = "table_screen",
-        title = "時間割り",
     )
 
     object SubjectsScreen : Destinations(
+        title = R.string.subjects_title,
         route = "subjects_screen",
-        title = "科目管理",
     )
 }
 
