@@ -26,8 +26,8 @@ sealed class Destinations(
 }
 
 enum class TopLevelDestinations(
-    val destinations: Destinations
-){
+    val destinations: Destinations,
+) {
     TABLE(Destinations.TableScreen),
     SUBJECT(Destinations.SubjectsScreen),
 }

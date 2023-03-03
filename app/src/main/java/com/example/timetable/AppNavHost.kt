@@ -29,7 +29,7 @@ fun AppNavHost(
     Scaffold(
         bottomBar = {
             BottomNavigation(
-                backgroundColor = MaterialTheme.colors.background
+                backgroundColor = MaterialTheme.colors.background,
             ) {
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = navBackStackEntry?.destination
@@ -37,26 +37,26 @@ fun AppNavHost(
                 TopLevelDestinations.values().forEach { item ->
                     BottomNavigationItem(
                         selected = currentDestination?.hierarchy?.any { it.route == item.destinations.route } == true,
-                        icon = {Icon(item.destinations.icon, null)},
+                        icon = { Icon(item.destinations.icon, null) },
                         label = {
                             Text(
                                 text = stringResource(id = item.destinations.title),
-                                maxLines = 1
+                                maxLines = 1,
                             )
                         },
                         onClick = {
-                            navController.navigate(item.destinations.route){
-                                popUpTo(navController.graph.findStartDestination().id){
+                            navController.navigate(item.destinations.route) {
+                                popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true
                                 }
                                 launchSingleTop = true
                                 restoreState = true
                             }
-                        }
+                        },
                     )
                 }
             }
-        }
+        },
     ) { innerPadding ->
         NavHost(
             modifier = Modifier.padding(innerPadding),
