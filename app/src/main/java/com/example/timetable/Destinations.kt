@@ -5,8 +5,8 @@ sealed class Destinations(
     val title: String,
 ) {
 
-    object TimeTableScreen : Destinations(
-        route = "timetable_screen",
+    object TableScreen : Destinations(
+        route = "table_screen",
         title = "時間割り",
     )
 
@@ -14,4 +14,11 @@ sealed class Destinations(
         route = "subjects_screen",
         title = "科目管理",
     )
+}
+
+enum class TopLevelDestinations(
+    val destinations: Destinations
+){
+    TABLE(Destinations.TableScreen),
+    SUBJECT(Destinations.SubjectsScreen),
 }
