@@ -1,4 +1,4 @@
-package com.example.timetable.ui.main.timeTable
+package com.example.timetable.ui.table.timeTable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

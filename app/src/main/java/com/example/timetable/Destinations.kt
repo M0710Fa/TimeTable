@@ -1,0 +1,33 @@
+package com.example.timetable
+
+import androidx.annotation.StringRes
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.List
+import androidx.compose.material.icons.outlined.TableView
+import androidx.compose.ui.graphics.vector.ImageVector
+
+sealed class Destinations(
+    @StringRes val title: Int,
+    val icon: ImageVector,
+    val route: String,
+) {
+
+    object TableScreen : Destinations(
+        title = R.string.timetable_title,
+        icon = Icons.Outlined.TableView,
+        route = "table_screen",
+    )
+
+    object SubjectsScreen : Destinations(
+        title = R.string.subjects_title,
+        icon = Icons.Outlined.List,
+        route = "subjects_screen",
+    )
+}
+
+enum class TopLevelDestinations(
+    val destinations: Destinations,
+) {
+    TABLE(Destinations.TableScreen),
+    SUBJECT(Destinations.SubjectsScreen),
+}

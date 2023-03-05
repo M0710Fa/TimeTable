@@ -1,4 +1,4 @@
-package com.example.timetable.ui.main
+package com.example.timetable.ui.table
 
 import com.example.timetable.model.source.DailyTables
 import com.example.timetable.model.source.Subject
