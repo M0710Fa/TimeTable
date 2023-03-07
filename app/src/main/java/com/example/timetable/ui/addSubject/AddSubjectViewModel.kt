@@ -12,23 +12,20 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class MainUiState(
+data class AddSubjectUiState(
     val subjectName: String = "",
     val classRoom: String = "",
     val teacher: String = "",
-    val subjects: List<Subject> = emptyList(),
 )
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class AddSubjectViewModel @Inject constructor(
     private val timeTableRepository: TimeTableRepository,
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(MainUiState())
-    val uiState: StateFlow<MainUiState> = _uiState
+    private val TAG = "AddSubjectViewModel"
 
-    init {
-        getAllSubject()
-    }
+    private val _uiState = MutableStateFlow(AddSubjectUiState())
+    val uiState: StateFlow<AddSubjectUiState> = _uiState
 
     fun updateSubjectName(newSubjectName: String) {
         _uiState.update {
@@ -48,21 +45,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getAllSubject() = viewModelScope.launch {
-        val TAG = "GET_SUBJECT"
-        try {
-            timeTableRepository.getSubjects().collect { subjects ->
-                _uiState.update {
-                    it.copy(subjects = subjects)
-                }
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Failure Get Subject with $e")
-        }
-    }
     fun addSubject() = viewModelScope.launch {
-        val TAG = "ADD_SUBJECT"
-
         try {
             val newSubject = Subject(
                 subjectName = _uiState.value.subjectName.let {

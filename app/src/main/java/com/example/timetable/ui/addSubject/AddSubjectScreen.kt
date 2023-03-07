@@ -11,13 +11,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.timetable.R
-import com.example.timetable.model.source.Subject
-import com.example.timetable.ui.manageSubjects.DisplaySubjects
 
 @Composable
 fun AddSubjectScreen(
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = hiltViewModel(),
+    viewModel: AddSubjectViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -30,10 +28,6 @@ fun AddSubjectScreen(
             updateClassRoom = viewModel::updateClassRoom,
             updateTeacher = viewModel::updateTeacher,
             registerSubject = viewModel::addSubject,
-        )
-
-        DisplaySubjects(
-            subjects = uiState.subjects,
         )
     }
 }
@@ -99,31 +93,4 @@ fun AddSubjectContent(
             Text(text = "科目登録")
         }
     }
-}
-
-@Composable
-fun SubjectContent(
-    modifier: Modifier = Modifier,
-    subject: Subject,
-) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(4.dp),
-        content = {
-            Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
-                Column() {
-                    Text(
-                        text = subject.subjectName,
-                        modifier = modifier.padding(8.dp),
-                    )
-                    Row() {
-                        Text(text = subject.classRoom ?: "")
-                        Spacer(modifier = modifier.width(16.dp))
-                        Text(text = subject.teacher ?: "")
-                    }
-                }
-            }
-        },
-    )
 }
