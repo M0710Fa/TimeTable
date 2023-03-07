@@ -1,9 +1,9 @@
 package com.example.timetable.ui.manageSubjects
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,7 +13,6 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.timetable.model.source.Subject
-import com.example.timetable.ui.addSubject.SubjectContent
 
 @Composable
 fun ManageSubjectsScreen(
@@ -44,4 +43,32 @@ fun DisplaySubjects(
             }
         }
     }
+}
+
+
+@Composable
+fun SubjectContent(
+    modifier: Modifier = Modifier,
+    subject: Subject,
+) {
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        content = {
+            Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
+                Column() {
+                    Text(
+                        text = subject.subjectName,
+                        modifier = modifier.padding(8.dp),
+                    )
+                    Row() {
+                        Text(text = subject.classRoom ?: "")
+                        Spacer(modifier = modifier.width(16.dp))
+                        Text(text = subject.teacher ?: "")
+                    }
+                }
+            }
+        },
+    )
 }
