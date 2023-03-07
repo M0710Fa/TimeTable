@@ -13,13 +13,13 @@ import javax.inject.Inject
 
 data class ManageSubjectUiState(
     val subjects: List<Subject> = emptyList(),
-    )
+)
 
 @HiltViewModel
 class ManageSubjectsViewModel @Inject constructor(
-    private val timeTableRepository: TimeTableRepository
-): ViewModel() {
-   private val TAG = "ManageSubjectsViewModel"
+    private val timeTableRepository: TimeTableRepository,
+) : ViewModel() {
+    private val TAG = "ManageSubjectsViewModel"
 
     private val _uiState = MutableStateFlow(ManageSubjectUiState())
     val uiState = _uiState
