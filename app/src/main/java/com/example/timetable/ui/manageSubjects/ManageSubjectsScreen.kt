@@ -9,12 +9,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Card
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,7 +33,19 @@ fun ManageSubjectsScreen(
     viewModel: ManageSubjectsViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    DisplaySubjects(subjects = uiState.subjects)
+
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = { /*TODO*/ }) {
+                Icon(Icons.Default.Add, null)
+            }
+        }
+    ) {
+        DisplaySubjects(
+            subjects = uiState.subjects,
+            modifier = modifier.padding(it)
+        )
+    }
 }
 
 @Composable
@@ -40,6 +59,7 @@ fun DisplaySubjects(
         Text(
             text = "登録された科目一覧",
             style = MaterialTheme.typography.titleLarge,
+            modifier = modifier.padding(4.dp)
         )
         LazyColumn(
             modifier = modifier.padding(8.dp),
@@ -76,4 +96,24 @@ fun SubjectContent(
             }
         },
     )
+}
+
+@Preview
+@Composable
+fun PreviewDisplaySubject() {
+    val subjects = mutableListOf<Subject>()
+
+    for(i in 0..10){
+        val subject = Subject(
+            id = i,
+            subjectName = "科目：$i",
+            classRoom = null,
+            teacher = null,
+            subjectColor = ""
+        )
+        subjects.add(subject)
+    }
+    Surface() {
+        DisplaySubjects(subjects = subjects)
+    }
 }
