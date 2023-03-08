@@ -59,7 +59,7 @@ class AddSubjectViewModel @Inject constructor(
                 teacher = _uiState.value.teacher,
                 subjectColor = "",
             )
-            Log.i(TAG, "Success Insert Subject")
+            Log.d(TAG, "Success Insert Subject")
             timeTableRepository.addSubject(newSubject)
         } catch (e: CollectSubjectError) {
             Log.e(TAG, "Failure Insert Subject with $e")
