@@ -9,6 +9,8 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -17,6 +19,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.timetable.ui.addSubject.AddSubjectScreen
 import com.example.timetable.ui.manageSubjects.ManageSubjectsScreen
 import com.example.timetable.ui.table.TableScreen
 
@@ -26,34 +29,41 @@ fun AppNavHost(
     startDestination: String,
 ) {
     val navController = rememberNavController()
+
+    val showedScreen = navController.currentBackStackEntryAsState().value?.destination?.route
+    val bottomBarState = showedScreen != Destinations.AddSubjectScreen.route
     Scaffold(
         bottomBar = {
-            BottomNavigation(
-                backgroundColor = MaterialTheme.colors.background,
-            ) {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
+            if(bottomBarState) {
+                BottomNavigation(
+                    backgroundColor = MaterialTheme.colors.background,
+                ) {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
 
-                TopLevelDestinations.values().forEach { item ->
-                    BottomNavigationItem(
-                        selected = currentDestination?.hierarchy?.any { it.route == item.destinations.route } == true,
-                        icon = { Icon(item.destinations.icon, null) },
-                        label = {
-                            Text(
-                                text = stringResource(id = item.destinations.title),
-                                maxLines = 1,
-                            )
-                        },
-                        onClick = {
-                            navController.navigate(item.destinations.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                    val bottomBarState by rememberSaveable { mutableStateOf(true) }
+
+                    TopLevelDestinations.values().forEach { item ->
+                        BottomNavigationItem(
+                            selected = currentDestination?.hierarchy?.any { it.route == item.destinations.route } == true,
+                            icon = { Icon(item.destinations.icon, null) },
+                            label = {
+                                Text(
+                                    text = stringResource(id = item.destinations.title),
+                                    maxLines = 1,
+                                )
+                            },
+                            onClick = {
+                                navController.navigate(item.destinations.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                    )
+                            },
+                        )
+                    }
                 }
             }
         },
@@ -67,7 +77,12 @@ fun AppNavHost(
                 TableScreen()
             }
             composable(route = Destinations.ManageSubjectsScreen.route) {
-                ManageSubjectsScreen()
+                ManageSubjectsScreen(
+                    transitionToAddSubject = {navController.navigate(Destinations.AddSubjectScreen.route)}
+                )
+            }
+            composable(route = Destinations.AddSubjectScreen.route){
+                AddSubjectScreen()
             }
         }
     }

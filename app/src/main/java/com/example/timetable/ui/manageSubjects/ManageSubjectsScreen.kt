@@ -31,12 +31,15 @@ import com.example.timetable.model.source.Subject
 fun ManageSubjectsScreen(
     modifier: Modifier = Modifier,
     viewModel: ManageSubjectsViewModel = hiltViewModel(),
+    transitionToAddSubject:() -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(
+                onClick = { transitionToAddSubject() }
+            ) {
                 Icon(Icons.Default.Add, null)
             }
         }
