@@ -1,5 +1,7 @@
 package com.example.timetable
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -15,20 +17,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.timetable.ui.addSubject.AddSubjectScreen
 import com.example.timetable.ui.manageSubjects.ManageSubjectsScreen
 import com.example.timetable.ui.table.TableScreen
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     startDestination: String,
 ) {
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
 
     val showedScreen = navController.currentBackStackEntryAsState().value?.destination?.route
     val bottomBarState = showedScreen != Destinations.AddSubjectScreen.route
@@ -68,7 +72,7 @@ fun AppNavHost(
             }
         },
     ) { innerPadding ->
-        NavHost(
+        AnimatedNavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
             startDestination = startDestination,
@@ -81,7 +85,12 @@ fun AppNavHost(
                     transitionToAddSubject = {navController.navigate(Destinations.AddSubjectScreen.route)}
                 )
             }
-            composable(route = Destinations.AddSubjectScreen.route){
+            composable(
+                route = Destinations.AddSubjectScreen.route,
+                enterTransition = {
+                    slideInVertically(initialOffsetY = {fullHeight ->  fullHeight})
+                }
+            ){
                 AddSubjectScreen()
             }
         }
