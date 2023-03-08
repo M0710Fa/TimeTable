@@ -17,7 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.timetable.ui.addSubject.AddSubjectScreen
+import com.example.timetable.ui.manageSubjects.ManageSubjectsScreen
 import com.example.timetable.ui.table.TableScreen
 
 @Composable
@@ -66,8 +66,8 @@ fun AppNavHost(
             composable(route = Destinations.TableScreen.route) {
                 TableScreen()
             }
-            composable(route = Destinations.SubjectsScreen.route) {
-                AddSubjectScreen()
+            composable(route = Destinations.ManageSubjectsScreen.route) {
+                ManageSubjectsScreen()
             }
         }
     }

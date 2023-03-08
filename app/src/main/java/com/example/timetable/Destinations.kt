@@ -18,16 +18,17 @@ sealed class Destinations(
         route = "table_screen",
     )
 
-    object SubjectsScreen : Destinations(
+    object ManageSubjectsScreen : Destinations(
         title = R.string.subjects_title,
         icon = Icons.Outlined.List,
-        route = "subjects_screen",
+        route = "manage_subjects_screen",
     )
+
 }
 
 enum class TopLevelDestinations(
     val destinations: Destinations,
 ) {
     TABLE(Destinations.TableScreen),
-    SUBJECT(Destinations.SubjectsScreen),
+    SUBJECT(Destinations.ManageSubjectsScreen),
 }
