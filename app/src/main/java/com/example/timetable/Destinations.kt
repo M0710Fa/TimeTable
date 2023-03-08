@@ -28,7 +28,7 @@ sealed class Destinations(
     object AddSubjectScreen: Destinations(
         title = R.string.add_subjects_title,
         icon = Icons.Default.Add,
-        route = "add_subject_screen"
+        route = "add_subject_screen",
     )
 
 }
