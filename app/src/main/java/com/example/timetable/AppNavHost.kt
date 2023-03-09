@@ -95,7 +95,9 @@ fun AppNavHost(
                     slideOutVertically(targetOffsetY = {fullHeight -> fullHeight })
                 }
             ){
-                AddSubjectScreen()
+                AddSubjectScreen(
+                    transitionToBackStack = { navController.popBackStack() }
+                )
             }
         }
     }

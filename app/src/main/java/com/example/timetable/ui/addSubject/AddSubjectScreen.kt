@@ -30,6 +30,7 @@ import com.example.timetable.R
 fun AddSubjectScreen(
     modifier: Modifier = Modifier,
     viewModel: AddSubjectViewModel = hiltViewModel(),
+    transitionToBackStack : () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -39,7 +40,9 @@ fun AddSubjectScreen(
             modifier = modifier.padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ){
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = {
+                transitionToBackStack()
+            }) {
                 Icon(
                     Icons.Default.Close,
                     null,
@@ -49,7 +52,9 @@ fun AddSubjectScreen(
             Spacer(modifier = modifier.weight(.3f))
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          viewModel::addSubject
+                          },
             ) {
                 Text(
                     text = "科目登録",
@@ -63,7 +68,6 @@ fun AddSubjectScreen(
             updateSubjectName = viewModel::updateSubjectName,
             updateClassRoom = viewModel::updateClassRoom,
             updateTeacher = viewModel::updateTeacher,
-            registerSubject = viewModel::addSubject,
         )
     }
 
@@ -79,7 +83,6 @@ fun AddSubjectContent(
     updateSubjectName: (String) -> Unit,
     updateClassRoom: (String) -> Unit,
     updateTeacher: (String) -> Unit,
-    registerSubject: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -132,7 +135,6 @@ fun PreviewAddSubject() {
             updateSubjectName = {},
             updateClassRoom = {},
             updateTeacher = {},
-            registerSubject = {},
         )
     }
 }
