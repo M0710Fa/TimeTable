@@ -1,10 +1,16 @@
 package com.example.timetable.ui.addSubject
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -27,15 +33,40 @@ fun AddSubjectScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    AddSubjectContent(
-        subjectName = uiState.subjectName,
-        classRoom = uiState.classRoom,
-        teacher = uiState.teacher,
-        updateSubjectName = viewModel::updateSubjectName,
-        updateClassRoom = viewModel::updateClassRoom,
-        updateTeacher = viewModel::updateTeacher,
-        registerSubject = viewModel::addSubject,
-    )
+    Column(
+    ) {
+        Row(
+            modifier = modifier.padding(8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(
+                    Icons.Default.Close,
+                    null,
+                    modifier = modifier.weight(.1f)
+                )
+            }
+            Spacer(modifier = modifier.weight(.3f))
+
+            Button(
+                onClick = { /*TODO*/ },
+            ) {
+                Text(
+                    text = "科目登録",
+                )
+            }
+        }
+        AddSubjectContent(
+            subjectName = uiState.subjectName,
+            classRoom = uiState.classRoom,
+            teacher = uiState.teacher,
+            updateSubjectName = viewModel::updateSubjectName,
+            updateClassRoom = viewModel::updateClassRoom,
+            updateTeacher = viewModel::updateTeacher,
+            registerSubject = viewModel::addSubject,
+        )
+    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,17 +118,6 @@ fun AddSubjectContent(
             },
             modifier = textFieldModifier,
         )
-
-        Button(
-            onClick = {
-                registerSubject()
-            },
-            modifier = modifier
-                .align(Alignment.End)
-                .padding(8.dp),
-        ) {
-            Text(text = "科目登録")
-        }
     }
 }
 
