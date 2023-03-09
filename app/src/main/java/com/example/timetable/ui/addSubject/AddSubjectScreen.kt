@@ -53,7 +53,8 @@ fun AddSubjectScreen(
 
             Button(
                 onClick = {
-                          viewModel::addSubject
+                    viewModel.addSubject()
+                    transitionToBackStack()
                           },
             ) {
                 Text(
