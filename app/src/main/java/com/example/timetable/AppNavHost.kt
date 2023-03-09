@@ -12,8 +12,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
@@ -25,7 +23,6 @@ import com.example.timetable.ui.table.TableScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -39,14 +36,12 @@ fun AppNavHost(
     val bottomBarState = showedScreen != Destinations.AddSubjectScreen.route
     Scaffold(
         bottomBar = {
-            if(bottomBarState) {
+            if (bottomBarState) {
                 BottomNavigation(
                     backgroundColor = MaterialTheme.colors.background,
                 ) {
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentDestination = navBackStackEntry?.destination
-
-                    val bottomBarState by rememberSaveable { mutableStateOf(true) }
 
                     TopLevelDestinations.values().forEach { item ->
                         BottomNavigationItem(
@@ -83,20 +78,20 @@ fun AppNavHost(
             }
             composable(route = Destinations.ManageSubjectsScreen.route) {
                 ManageSubjectsScreen(
-                    transitionToAddSubject = {navController.navigate(Destinations.AddSubjectScreen.route)}
+                    transitionToAddSubject = { navController.navigate(Destinations.AddSubjectScreen.route) },
                 )
             }
             composable(
                 route = Destinations.AddSubjectScreen.route,
                 enterTransition = {
-                    slideInVertically(initialOffsetY = {fullHeight ->  fullHeight})
+                    slideInVertically(initialOffsetY = { fullHeight -> fullHeight })
                 },
                 exitTransition = {
-                    slideOutVertically(targetOffsetY = {fullHeight -> fullHeight })
-                }
-            ){
+                    slideOutVertically(targetOffsetY = { fullHeight -> fullHeight })
+                },
+            ) {
                 AddSubjectScreen(
-                    transitionToBackStack = { navController.popBackStack() }
+                    transitionToBackStack = { navController.popBackStack() },
                 )
             }
         }

@@ -31,22 +31,22 @@ import com.example.timetable.model.source.Subject
 fun ManageSubjectsScreen(
     modifier: Modifier = Modifier,
     viewModel: ManageSubjectsViewModel = hiltViewModel(),
-    transitionToAddSubject:() -> Unit = {},
+    transitionToAddSubject: () -> Unit = {},
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { transitionToAddSubject() }
+                onClick = { transitionToAddSubject() },
             ) {
                 Icon(Icons.Default.Add, null)
             }
-        }
+        },
     ) {
         DisplaySubjects(
             subjects = uiState.subjects,
-            modifier = modifier.padding(it)
+            modifier = modifier.padding(it),
         )
     }
 }
@@ -62,7 +62,7 @@ fun DisplaySubjects(
         Text(
             text = "登録された科目一覧",
             style = MaterialTheme.typography.titleLarge,
-            modifier = modifier.padding(4.dp)
+            modifier = modifier.padding(4.dp),
         )
         LazyColumn(
             modifier = modifier.padding(8.dp),
@@ -106,13 +106,13 @@ fun SubjectContent(
 fun PreviewDisplaySubject() {
     val subjects = mutableListOf<Subject>()
 
-    for(i in 0..10){
+    for (i in 0..10) {
         val subject = Subject(
             id = i,
             subjectName = "科目：$i",
             classRoom = null,
             teacher = null,
-            subjectColor = ""
+            subjectColor = "",
         )
         subjects.add(subject)
     }

@@ -34,23 +34,22 @@ import com.example.timetable.R
 fun AddSubjectScreen(
     modifier: Modifier = Modifier,
     viewModel: AddSubjectViewModel = hiltViewModel(),
-    transitionToBackStack : () -> Unit,
+    transitionToBackStack: () -> Unit,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Column(
-    ) {
+    Column() {
         Row(
             modifier = modifier.padding(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ){
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             IconButton(onClick = {
                 transitionToBackStack()
             }) {
                 Icon(
                     Icons.Default.Close,
                     null,
-                    modifier = modifier.weight(.1f)
+                    modifier = modifier.weight(.1f),
                 )
             }
             Spacer(modifier = modifier.weight(.3f))
@@ -59,7 +58,7 @@ fun AddSubjectScreen(
                 onClick = {
                     viewModel.addSubject()
                     transitionToBackStack()
-                          },
+                },
             ) {
                 Text(
                     text = "科目登録",
@@ -75,7 +74,6 @@ fun AddSubjectScreen(
             updateTeacher = viewModel::updateTeacher,
         )
     }
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -89,7 +87,6 @@ fun AddSubjectContent(
     updateClassRoom: (String) -> Unit,
     updateTeacher: (String) -> Unit,
 ) {
-
     val focusRequester = remember { FocusRequester() }
 
     Column(
@@ -131,7 +128,7 @@ fun AddSubjectContent(
         )
     }
 
-    LaunchedEffect(Unit){
+    LaunchedEffect(Unit) {
         focusRequester.requestFocus()
     }
 }

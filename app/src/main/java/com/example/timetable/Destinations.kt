@@ -25,12 +25,11 @@ sealed class Destinations(
         route = "manage_subjects_screen",
     )
 
-    object AddSubjectScreen: Destinations(
+    object AddSubjectScreen : Destinations(
         title = R.string.add_subjects_title,
         icon = Icons.Default.Add,
         route = "add_subject_screen",
     )
-
 }
 
 enum class TopLevelDestinations(
