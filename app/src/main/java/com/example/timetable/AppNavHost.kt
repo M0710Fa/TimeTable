@@ -1,5 +1,8 @@
 package com.example.timetable
 
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -13,52 +16,59 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.example.timetable.ui.addSubject.AddSubjectScreen
+import com.example.timetable.ui.manageSubjects.ManageSubjectsScreen
 import com.example.timetable.ui.table.TableScreen
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     startDestination: String,
 ) {
-    val navController = rememberNavController()
+    val navController = rememberAnimatedNavController()
+
+    val showedScreen = navController.currentBackStackEntryAsState().value?.destination?.route
+    val bottomBarState = showedScreen != Destinations.AddSubjectScreen.route
     Scaffold(
         bottomBar = {
-            BottomNavigation(
-                backgroundColor = MaterialTheme.colors.background,
-            ) {
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentDestination = navBackStackEntry?.destination
+            if (bottomBarState) {
+                BottomNavigation(
+                    backgroundColor = MaterialTheme.colors.background,
+                ) {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentDestination = navBackStackEntry?.destination
 
-                TopLevelDestinations.values().forEach { item ->
-                    BottomNavigationItem(
-                        selected = currentDestination?.hierarchy?.any { it.route == item.destinations.route } == true,
-                        icon = { Icon(item.destinations.icon, null) },
-                        label = {
-                            Text(
-                                text = stringResource(id = item.destinations.title),
-                                maxLines = 1,
-                            )
-                        },
-                        onClick = {
-                            navController.navigate(item.destinations.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                    TopLevelDestinations.values().forEach { item ->
+                        BottomNavigationItem(
+                            selected = currentDestination?.hierarchy?.any { it.route == item.destinations.route } == true,
+                            icon = { Icon(item.destinations.icon, null) },
+                            label = {
+                                Text(
+                                    text = stringResource(id = item.destinations.title),
+                                    maxLines = 1,
+                                )
+                            },
+                            onClick = {
+                                navController.navigate(item.destinations.route) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        },
-                    )
+                            },
+                        )
+                    }
                 }
             }
         },
     ) { innerPadding ->
-        NavHost(
+        AnimatedNavHost(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
             startDestination = startDestination,
@@ -66,8 +76,23 @@ fun AppNavHost(
             composable(route = Destinations.TableScreen.route) {
                 TableScreen()
             }
-            composable(route = Destinations.SubjectsScreen.route) {
-                AddSubjectScreen()
+            composable(route = Destinations.ManageSubjectsScreen.route) {
+                ManageSubjectsScreen(
+                    transitionToAddSubject = { navController.navigate(Destinations.AddSubjectScreen.route) },
+                )
+            }
+            composable(
+                route = Destinations.AddSubjectScreen.route,
+                enterTransition = {
+                    slideInVertically(initialOffsetY = { fullHeight -> fullHeight - 100 })
+                },
+                exitTransition = {
+                    slideOutVertically(targetOffsetY = { fullHeight -> fullHeight - 100 })
+                },
+            ) {
+                AddSubjectScreen(
+                    transitionToBackStack = { navController.popBackStack() },
+                )
             }
         }
     }
