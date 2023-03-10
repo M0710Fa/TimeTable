@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -27,6 +28,8 @@ fun BlankTable(
     timeTable: List<DailyTables>,
     weeksHeight: Dp,
     timesWidth: Dp,
+    weeks: Int,
+    times: Int,
 ) {
     Column(
         modifier = modifier
@@ -62,7 +65,7 @@ fun BlankTable(
             Column(
                 modifier = modifier.width(timesWidth),
             ) {
-                for (i in 1..timeTable[0].subjects.size) {
+                for (i in 1..times) {
                     Text(
                         text = i.toString(),
                         modifier = modifier
@@ -73,7 +76,7 @@ fun BlankTable(
                 }
             }
             Row() {
-                timeTable.forEach { daily ->
+                timeTable.forEachIndexed() { index, _ ->
                     Box(modifier = modifier.weight(.1f)) {
                         BlankColumn()
                     }
@@ -103,7 +106,7 @@ fun BlackSubject(
             .fillMaxSize()
             .padding(2.dp)
             .background(
-                color = Color.White,
+                color = MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(4.dp),
             ),
     )

@@ -1,5 +1,6 @@
 package com.example.timetable.ui.table.timeTable
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +32,11 @@ fun TimeTable(
     timeTable: List<DailyTables>,
     weeksHeight: Dp,
     timesWidth: Dp,
+    weeks: Int,
+    times: Int,
 ) {
+    val cardId = weeks * times
+
     Column(
         modifier = modifier.padding(4.dp),
     ) {
@@ -50,9 +56,9 @@ fun TimeTable(
                     color = Color.Transparent,
                 ),
             ) {
-                timeTable.forEach { daily ->
+                timeTable.forEachIndexed() { index, daily ->
                     Box(modifier = modifier.weight(.1f)) {
-                        DailyColumn(dailySubject = daily.subjects)
+                        DailyColumn(dailySubject = daily.subjects, cardId = index*times)
                     }
                 }
             }
@@ -64,54 +70,58 @@ fun TimeTable(
 fun DailyColumn(
     modifier: Modifier = Modifier,
     dailySubject: Map<Int, Subject?>,
+    cardId: Int,
 ) {
+    var i = 0
     Column(
         modifier = modifier,
     ) {
-        dailySubject.forEach {
-            it.value.let { subject ->
-                if (subject != null) {
-                    SubjectCard(subject = subject, modifier = modifier.weight(.1f))
-                } else {
-                    Spacer(modifier = modifier.weight(.1f))
-                }
-            }
+        dailySubject.forEach() { subject ->
+            SubjectCard(subject = subject.value, modifier = modifier.weight(.1f), cardId = cardId + i)
+            i ++
         }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SubjectCard(
     modifier: Modifier = Modifier,
-    subject: Subject,
+    subject: Subject?,
+    cardId: Int,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(2.dp),
         shape = RoundedCornerShape(4.dp),
+        onClick = { Log.d("aaaaaa", "clicked $cardId") }
     ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(4.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = subject.subjectName,
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                text = subject.classRoom ?: "",
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.Center,
-            )
-            Text(
-                text = subject.teacher ?: "",
-                style = MaterialTheme.typography.bodySmall,
-                textAlign = TextAlign.Center,
-            )
+        if (subject != null) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(4.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                Text(
+                    text = subject.subjectName,
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    text = subject.classRoom ?: "",
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                )
+                Text(
+                    text = subject.teacher ?: "",
+                    style = MaterialTheme.typography.bodySmall,
+                    textAlign = TextAlign.Center,
+                )
+            }
+        } else{
+            Spacer(modifier = modifier.fillMaxSize().background(color = MaterialTheme.colorScheme.background))
         }
     }
 }
