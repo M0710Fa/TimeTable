@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -105,6 +107,7 @@ fun AddSubjectContent(
         OutlinedTextField(
             value = subjectName,
             onValueChange = { updateSubjectName(it) },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             label = {
                 Text(text = stringResource(id = R.string.subject_name))
             },
@@ -113,6 +116,7 @@ fun AddSubjectContent(
         OutlinedTextField(
             value = classRoom,
             onValueChange = { updateClassRoom(it) },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             label = {
                 Text(text = stringResource(id = R.string.class_room))
             },
@@ -121,6 +125,7 @@ fun AddSubjectContent(
         OutlinedTextField(
             value = teacher,
             onValueChange = { updateTeacher(it) },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             label = {
                 Text(text = stringResource(id = R.string.teacher))
             },
