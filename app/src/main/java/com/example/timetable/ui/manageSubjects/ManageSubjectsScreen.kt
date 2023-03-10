@@ -61,7 +61,7 @@ fun DisplaySubjects(
     ) {
         Text(
             text = "登録された科目一覧",
-            style = MaterialTheme.typography.titleLarge,
+            style = MaterialTheme.typography.headlineSmall,
             modifier = modifier.padding(4.dp),
         )
         LazyColumn(
@@ -85,15 +85,24 @@ fun SubjectContent(
             .padding(4.dp),
         content = {
             Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
-                Column() {
+                Column(
+                    modifier = modifier.padding(4.dp)
+                ) {
                     Text(
                         text = subject.subjectName,
-                        modifier = modifier.padding(8.dp),
+                        style = MaterialTheme.typography.titleMedium
                     )
                     Row() {
-                        Text(text = subject.classRoom ?: "")
+                        val style = MaterialTheme.typography.bodyMedium
+                        Text(
+                            text = subject.classRoom ?: "",
+                            style = style
+                        )
                         Spacer(modifier = modifier.width(16.dp))
-                        Text(text = subject.teacher ?: "")
+                        Text(
+                            text = subject.teacher ?: "",
+                            style = style
+                        )
                     }
                 }
             }
@@ -119,4 +128,30 @@ fun PreviewDisplaySubject() {
     Surface() {
         DisplaySubjects(subjects = subjects)
     }
+}
+
+@Preview
+@Composable
+fun PreviewSubjectContentWhenOnlyName() {
+    val subject = Subject(
+        id = 0,
+        subjectName = "科目名",
+        classRoom = null,
+        teacher = null,
+        subjectColor = ""
+    )
+    SubjectContent(subject = subject)
+}
+
+@Preview
+@Composable
+fun PreviewSubjectContentWhenAllInfo() {
+    val subject = Subject(
+        id = 0,
+        subjectName = "科目名",
+        classRoom = "教室名",
+        teacher = "担当教員",
+        subjectColor = ""
+    )
+    SubjectContent(subject = subject)
 }
