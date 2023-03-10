@@ -86,22 +86,22 @@ fun SubjectContent(
         content = {
             Box(modifier = modifier.padding(vertical = 4.dp, horizontal = 8.dp)) {
                 Column(
-                    modifier = modifier.padding(4.dp)
+                    modifier = modifier.padding(4.dp),
                 ) {
                     Text(
                         text = subject.subjectName,
-                        style = MaterialTheme.typography.titleMedium
+                        style = MaterialTheme.typography.titleMedium,
                     )
                     Row() {
                         val style = MaterialTheme.typography.bodyMedium
                         Text(
                             text = subject.classRoom ?: "",
-                            style = style
+                            style = style,
                         )
                         Spacer(modifier = modifier.width(16.dp))
                         Text(
                             text = subject.teacher ?: "",
-                            style = style
+                            style = style,
                         )
                     }
                 }
@@ -138,7 +138,7 @@ fun PreviewSubjectContentWhenOnlyName() {
         subjectName = "科目名",
         classRoom = null,
         teacher = null,
-        subjectColor = ""
+        subjectColor = "",
     )
     SubjectContent(subject = subject)
 }
@@ -151,7 +151,7 @@ fun PreviewSubjectContentWhenAllInfo() {
         subjectName = "科目名",
         classRoom = "教室名",
         teacher = "担当教員",
-        subjectColor = ""
+        subjectColor = "",
     )
     SubjectContent(subject = subject)
 }

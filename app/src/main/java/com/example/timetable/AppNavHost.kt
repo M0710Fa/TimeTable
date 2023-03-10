@@ -84,10 +84,10 @@ fun AppNavHost(
             composable(
                 route = Destinations.AddSubjectScreen.route,
                 enterTransition = {
-                    slideInVertically(initialOffsetY = { fullHeight -> fullHeight-100 })
+                    slideInVertically(initialOffsetY = { fullHeight -> fullHeight - 100 })
                 },
                 exitTransition = {
-                    slideOutVertically(targetOffsetY = { fullHeight -> fullHeight-100 })
+                    slideOutVertically(targetOffsetY = { fullHeight -> fullHeight - 100 })
                 },
             ) {
                 AddSubjectScreen(
