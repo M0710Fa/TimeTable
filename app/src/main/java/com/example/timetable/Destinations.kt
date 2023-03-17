@@ -3,6 +3,7 @@ package com.example.timetable
 import androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Task
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.TableView
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -29,6 +30,12 @@ sealed class Destinations(
         title = R.string.add_subjects_title,
         icon = Icons.Default.Add,
         route = "add_subject_screen",
+    )
+
+    object SelectSubjectScreen: Destinations(
+        title = R.string.select_subject_title,
+        icon = Icons.Default.Task,
+        route = "select_subject_screen/{selected}"
     )
 }
 
