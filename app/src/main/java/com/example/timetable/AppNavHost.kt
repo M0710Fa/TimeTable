@@ -16,9 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.navArgument
 import com.example.timetable.ui.addSubject.AddSubjectScreen
 import com.example.timetable.ui.manageSubjects.ManageSubjectsScreen
+import com.example.timetable.ui.table.SelectSubjectScreen
 import com.example.timetable.ui.table.TableScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -33,7 +36,12 @@ fun AppNavHost(
     val navController = rememberAnimatedNavController()
 
     val showedScreen = navController.currentBackStackEntryAsState().value?.destination?.route
-    val bottomBarState = showedScreen != Destinations.AddSubjectScreen.route
+    val bottomBarState = when(showedScreen){
+        Destinations.AddSubjectScreen.route -> false
+        Destinations.SelectSubjectScreen.route -> false
+        else -> true
+    }
+
     Scaffold(
         bottomBar = {
             if (bottomBarState) {
@@ -74,13 +82,15 @@ fun AppNavHost(
             startDestination = startDestination,
         ) {
             composable(route = Destinations.TableScreen.route) {
-                TableScreen()
+                TableScreen(navController = navController)
             }
+
             composable(route = Destinations.ManageSubjectsScreen.route) {
                 ManageSubjectsScreen(
                     transitionToAddSubject = { navController.navigate(Destinations.AddSubjectScreen.route) },
                 )
             }
+
             composable(
                 route = Destinations.AddSubjectScreen.route,
                 enterTransition = {
@@ -93,6 +103,15 @@ fun AppNavHost(
                 AddSubjectScreen(
                     transitionToBackStack = { navController.popBackStack() },
                 )
+            }
+
+            composable(
+                route = Destinations.SelectSubjectScreen.route,
+                arguments = listOf(
+                    navArgument("selected",){ type = NavType.StringType }
+                )
+            ){backStackEntry ->
+                    SelectSubjectScreen(selected = backStackEntry?.arguments?.getString("selected")?:"999")
             }
         }
     }
