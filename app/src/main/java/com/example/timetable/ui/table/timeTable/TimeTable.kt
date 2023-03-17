@@ -21,8 +21,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.timetable.Destinations
 import com.example.timetable.model.source.DailyTables
 import com.example.timetable.model.source.Subject
 
@@ -34,15 +37,16 @@ fun TimeTable(
     timesWidth: Dp,
     weeks: Int,
     times: Int,
+    navController: NavController,
 ) {
     val cardId = weeks * times
-
     Column(
         modifier = modifier.padding(4.dp),
     ) {
         Spacer(
             modifier = modifier
-                .fillMaxWidth().height(weeksHeight),
+                .fillMaxWidth()
+                .height(weeksHeight),
         )
 
         // Display TimeTable
@@ -58,7 +62,11 @@ fun TimeTable(
             ) {
                 timeTable.forEachIndexed() { index, daily ->
                     Box(modifier = modifier.weight(.1f)) {
-                        DailyColumn(dailySubject = daily.subjects, cardId = index*times)
+                        DailyColumn(
+                            dailySubject = daily.subjects,
+                            cardId = index*times,
+                            navController = navController
+                        )
                     }
                 }
             }
@@ -71,13 +79,18 @@ fun DailyColumn(
     modifier: Modifier = Modifier,
     dailySubject: Map<Int, Subject?>,
     cardId: Int,
+    navController: NavController,
 ) {
     var i = 0
     Column(
         modifier = modifier,
     ) {
         dailySubject.forEach() { subject ->
-            SubjectCard(subject = subject.value, modifier = modifier.weight(.1f), cardId = cardId + i)
+            SubjectCard(
+                subject = subject.value,
+                modifier = modifier.weight(.1f),
+                cardId = cardId + i,
+                navController = navController)
             i ++
         }
     }
@@ -89,13 +102,17 @@ fun SubjectCard(
     modifier: Modifier = Modifier,
     subject: Subject?,
     cardId: Int,
+    navController: NavController,
 ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(2.dp),
         shape = RoundedCornerShape(4.dp),
-        onClick = { Log.d("aaaaaa", "clicked $cardId") }
+        onClick = {
+            Log.d("aaaaaa", "clicked $cardId")
+            navController.navigate(Destinations.SelectSubjectScreen.route.replace(oldValue = "selected", newValue = "$cardId"))
+        }
     ) {
         if (subject != null) {
             Column(
@@ -121,7 +138,21 @@ fun SubjectCard(
                 )
             }
         } else{
-            Spacer(modifier = modifier.fillMaxSize().background(color = MaterialTheme.colorScheme.background))
+            Spacer(modifier = modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colorScheme.background))
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewSubjectCard() {
+    val subject = Subject(
+        id = 0,
+        subjectName = "科目名",
+        classRoom = null,
+        teacher = null,
+        subjectColor = ""
+    )
 }
