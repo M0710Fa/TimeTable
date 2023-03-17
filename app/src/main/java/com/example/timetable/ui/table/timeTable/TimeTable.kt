@@ -64,8 +64,8 @@ fun TimeTable(
                     Box(modifier = modifier.weight(.1f)) {
                         DailyColumn(
                             dailySubject = daily.subjects,
-                            cardId = index*times,
-                            navController = navController
+                            cardId = index * times,
+                            navController = navController,
                         )
                     }
                 }
@@ -90,8 +90,9 @@ fun DailyColumn(
                 subject = subject.value,
                 modifier = modifier.weight(.1f),
                 cardId = cardId + i,
-                navController = navController)
-            i ++
+                navController = navController,
+            )
+            i++
         }
     }
 }
@@ -112,7 +113,7 @@ fun SubjectCard(
         onClick = {
             Log.d("aaaaaa", "clicked $cardId")
             navController.navigate(Destinations.SelectSubjectScreen.route.replace(oldValue = "selected", newValue = "$cardId"))
-        }
+        },
     ) {
         if (subject != null) {
             Column(
@@ -137,10 +138,12 @@ fun SubjectCard(
                     textAlign = TextAlign.Center,
                 )
             }
-        } else{
-            Spacer(modifier = modifier
-                .fillMaxSize()
-                .background(color = MaterialTheme.colorScheme.background))
+        } else {
+            Spacer(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(color = MaterialTheme.colorScheme.background),
+            )
         }
     }
 }
@@ -153,6 +156,6 @@ fun PreviewSubjectCard() {
         subjectName = "科目名",
         classRoom = null,
         teacher = null,
-        subjectColor = ""
+        subjectColor = "",
     )
 }

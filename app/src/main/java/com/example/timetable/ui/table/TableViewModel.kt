@@ -11,22 +11,22 @@ import javax.inject.Inject
 
 data class TableUiState(
     val subjectsTable: List<DailyTables> = emptyList(),
-    val weeks : Int = 0,
-    val times : Int = 0,
+    val weeks: Int = 0,
+    val times: Int = 0,
 )
 
 @HiltViewModel
 class TableViewModel @Inject constructor(
-    private val timeTableRepository: TimeTableRepository
-): ViewModel() {
+    private val timeTableRepository: TimeTableRepository,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(TableUiState())
     val uiState: StateFlow<TableUiState> = _uiState
 
-    init{
+    init {
         getWeeksAndTimes()
     }
 
-    fun getWeeksAndTimes(){
+    fun getWeeksAndTimes() {
         _uiState.update {
             it.copy(weeks = 5, times = 5)
         }

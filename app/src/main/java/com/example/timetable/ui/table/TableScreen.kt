@@ -28,7 +28,7 @@ fun TableScreen(
             weeksHeight = weeksHeight,
             timesWidth = timesWidth,
             weeks = uiState.weeks,
-            times = uiState.times
+            times = uiState.times,
         )
         TimeTable(
             timeTable = MockTimeTable.timetable,
@@ -36,7 +36,7 @@ fun TableScreen(
             timesWidth = timesWidth,
             weeks = uiState.weeks,
             times = uiState.times,
-            navController = navController
+            navController = navController,
         )
     }
 }

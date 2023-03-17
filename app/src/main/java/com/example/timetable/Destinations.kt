@@ -32,10 +32,10 @@ sealed class Destinations(
         route = "add_subject_screen",
     )
 
-    object SelectSubjectScreen: Destinations(
+    object SelectSubjectScreen : Destinations(
         title = R.string.select_subject_title,
         icon = Icons.Default.Task,
-        route = "select_subject_screen/{selected}"
+        route = "select_subject_screen/{selected}",
     )
 }
 

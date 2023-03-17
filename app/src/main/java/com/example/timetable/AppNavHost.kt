@@ -36,7 +36,7 @@ fun AppNavHost(
     val navController = rememberAnimatedNavController()
 
     val showedScreen = navController.currentBackStackEntryAsState().value?.destination?.route
-    val bottomBarState = when(showedScreen){
+    val bottomBarState = when (showedScreen) {
         Destinations.AddSubjectScreen.route -> false
         Destinations.SelectSubjectScreen.route -> false
         else -> true
@@ -108,10 +108,10 @@ fun AppNavHost(
             composable(
                 route = Destinations.SelectSubjectScreen.route,
                 arguments = listOf(
-                    navArgument("selected",){ type = NavType.StringType }
-                )
-            ){backStackEntry ->
-                    SelectSubjectScreen(selected = backStackEntry?.arguments?.getString("selected")?:"999")
+                    navArgument("selected") { type = NavType.StringType },
+                ),
+            ) { backStackEntry ->
+                SelectSubjectScreen(selected = backStackEntry?.arguments?.getString("selected") ?: "999")
             }
         }
     }

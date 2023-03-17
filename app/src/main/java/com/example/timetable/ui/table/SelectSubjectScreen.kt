@@ -17,16 +17,16 @@ import com.example.timetable.Destinations
 @Composable
 fun SelectSubjectScreen(
     modifier: Modifier = Modifier,
-    selected : String,
+    selected: String,
 ) {
     val selectedId = selected.toInt()
 
     Column(
-        modifier = modifier.padding(8.dp)
+        modifier = modifier.padding(8.dp),
     ) {
         Text(
             text = stringResource(id = Destinations.SelectSubjectScreen.title),
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
         )
         Text("Selected Card $selected")
     }
