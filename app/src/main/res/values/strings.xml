@@ -4,9 +4,11 @@
     <string name="class_room">教室</string>
     <string name="teacher">教師</string>
 
+    //ScreenTitles
     <string name="timetable_title">時間割り</string>
     <string name="subjects_title">科目管理</string>
     <string name="add_subjects_title">科目の追加</string>
+    <string name="select_subject_title">科目の選択</string>
 
     <string name="registered_subjects">登録された科目一覧</string>
 </resources>
