@@ -33,7 +33,7 @@ import com.example.timetable.ui.selectSubject.SelectSubjectViewModel
 fun SelectSubjectScreen(
     modifier: Modifier = Modifier,
     selected: String,
-    viewModel: SelectSubjectViewModel = hiltViewModel()
+    viewModel: SelectSubjectViewModel = hiltViewModel(),
 ) {
     val selected = selected.replace("[{|}]".toRegex(), "")
     val selectedId = selected.toInt()
@@ -44,11 +44,11 @@ fun SelectSubjectScreen(
         modifier = modifier.padding(8.dp),
     ) {
         Row(
-            verticalAlignment = Alignment.CenterVertically
-        ){
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
             IconButton(
                 onClick = { /*TODO*/ },
-                modifier = modifier.padding(end = 16.dp)
+                modifier = modifier.padding(end = 16.dp),
             ) {
                 Icon(Icons.Default.ArrowBack, null)
             }
@@ -69,19 +69,19 @@ fun SelectSubjectScreen(
 @Composable
 fun SelectSubjectList(
     modifier: Modifier = Modifier,
-    subjects: List<Subject>
+    subjects: List<Subject>,
 ) {
-    LazyColumn{
-        items(subjects){
+    LazyColumn {
+        items(subjects) {
             Card(
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(4.dp)
-            ){
+                    .padding(4.dp),
+            ) {
                 Text(
                     text = it.subjectName,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = modifier.padding(16.dp)
+                    modifier = modifier.padding(16.dp),
                 )
             }
         }

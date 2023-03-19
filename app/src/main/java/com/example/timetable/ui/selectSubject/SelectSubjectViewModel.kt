@@ -13,31 +13,31 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class SelectSubjectUiState(
-    val subjects: List<Subject> = emptyList()
+    val subjects: List<Subject> = emptyList(),
 )
 
 @HiltViewModel
 class SelectSubjectViewModel @Inject constructor(
-    private val timeTableRepository: TimeTableRepository
-): ViewModel() {
+    private val timeTableRepository: TimeTableRepository,
+) : ViewModel() {
 
     val TAG = "SelectSubjectViewModel"
 
     private val _uiState = MutableStateFlow(SelectSubjectUiState())
     val uiState: StateFlow<SelectSubjectUiState> = _uiState
 
-    init{
+    init {
         fetchSubjects()
     }
 
-    fun fetchSubjects() = viewModelScope.launch{
+    fun fetchSubjects() = viewModelScope.launch {
         try {
-            timeTableRepository.getSubjects().collect{ subjects ->
+            timeTableRepository.getSubjects().collect { subjects ->
                 _uiState.update {
                     it.copy(subjects = subjects)
                 }
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             Log.d(TAG, "Error with $e")
         }
     }
