@@ -19,12 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.timetable.Destinations
 import com.example.timetable.model.source.Subject
 import com.example.timetable.ui.selectSubject.SelectSubjectViewModel
 
@@ -32,12 +30,10 @@ import com.example.timetable.ui.selectSubject.SelectSubjectViewModel
 @Composable
 fun SelectSubjectScreen(
     modifier: Modifier = Modifier,
-    selected: String,
+    week: String,
+    time: Int,
     viewModel: SelectSubjectViewModel = hiltViewModel(),
 ) {
-    val selected = selected.replace("[{|}]".toRegex(), "")
-    val selectedId = selected.toInt()
-
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
@@ -53,15 +49,15 @@ fun SelectSubjectScreen(
                 Icon(Icons.Default.ArrowBack, null)
             }
             Text(
-                text = "${selected}の科目を選択してください",
+                text = "科目を選択してください",
                 style = MaterialTheme.typography.titleLarge,
             )
         }
         Text(
-            text = stringResource(id = Destinations.SelectSubjectScreen.title),
+            text = week + "曜日" + time + "限の科目を選択",
             style = MaterialTheme.typography.titleLarge,
+            modifier = modifier.padding(4.dp)
         )
-        Text("Selected Card $selected")
         SelectSubjectList(subjects = uiState.subjects)
     }
 }
@@ -92,6 +88,5 @@ fun SelectSubjectList(
 @Composable
 fun PreviewSelectedSubject() {
     Surface() {
-        SelectSubjectScreen(selected = "999")
     }
 }

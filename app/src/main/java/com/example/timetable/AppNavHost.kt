@@ -108,10 +108,13 @@ fun AppNavHost(
             composable(
                 route = Destinations.SelectSubjectScreen.route,
                 arguments = listOf(
-                    navArgument("selected") { type = NavType.StringType },
+                    navArgument("week") { type = NavType.StringType },
+                    navArgument("time") { type = NavType.IntType },
                 ),
             ) { backStackEntry ->
-                SelectSubjectScreen(selected = backStackEntry?.arguments?.getString("selected") ?: "999")
+                backStackEntry?.arguments?.apply {
+                    SelectSubjectScreen(week = this.getString("week")?:"", time = this.getInt("time"))
+                }
             }
         }
     }
