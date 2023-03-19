@@ -112,7 +112,7 @@ fun SubjectCard(
         shape = RoundedCornerShape(4.dp),
         onClick = {
             Log.d("aaaaaa", "clicked $cardId")
-            navController.navigate(Destinations.SelectSubjectScreen.route.replace(oldValue = "selected", newValue = "$cardId"))
+            navController.navigate(Destinations.SelectSubjectScreen.route.replace(oldValue = "selected", newValue = cardId.toString()))
         },
     ) {
         if (subject != null) {
