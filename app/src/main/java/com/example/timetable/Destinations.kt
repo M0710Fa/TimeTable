@@ -35,7 +35,7 @@ sealed class Destinations(
     object SelectSubjectScreen : Destinations(
         title = R.string.select_subject_title,
         icon = Icons.Default.Task,
-        route = "select_subject_screen/{selected}",
+        route = "select_subject_screen/{week}/{time}",
     )
 }
 
