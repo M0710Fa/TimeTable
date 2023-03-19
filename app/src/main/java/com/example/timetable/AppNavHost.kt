@@ -113,7 +113,7 @@ fun AppNavHost(
                 ),
             ) { backStackEntry ->
                 backStackEntry?.arguments?.apply {
-                    SelectSubjectScreen(week = this.getString("week")?:"", time = this.getInt("time"))
+                    SelectSubjectScreen(week = this.getString("week") ?: "", time = this.getInt("time"))
                 }
             }
         }

@@ -56,7 +56,7 @@ fun SelectSubjectScreen(
         Text(
             text = week + "曜日" + time + "限の科目を選択",
             style = MaterialTheme.typography.titleLarge,
-            modifier = modifier.padding(4.dp)
+            modifier = modifier.padding(4.dp),
         )
         SelectSubjectList(subjects = uiState.subjects)
     }
