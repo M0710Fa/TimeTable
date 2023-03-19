@@ -64,7 +64,7 @@ fun TimeTable(
                     Box(modifier = modifier.weight(.1f)) {
                         DailyColumn(
                             dailySubject = daily.subjects,
-                            cardId = index * times,
+                            week = daily.week,
                             navController = navController,
                         )
                     }
@@ -78,7 +78,7 @@ fun TimeTable(
 fun DailyColumn(
     modifier: Modifier = Modifier,
     dailySubject: Map<Int, Subject?>,
-    cardId: Int,
+    week: String,
     navController: NavController,
 ) {
     var i = 0
@@ -89,7 +89,8 @@ fun DailyColumn(
             SubjectCard(
                 subject = subject.value,
                 modifier = modifier.weight(.1f),
-                cardId = cardId + i,
+                week = week,
+                time = i,
                 navController = navController,
             )
             i++
@@ -102,7 +103,8 @@ fun DailyColumn(
 fun SubjectCard(
     modifier: Modifier = Modifier,
     subject: Subject?,
-    cardId: Int,
+    week: String,
+    time: Int,
     navController: NavController,
 ) {
     Card(
@@ -111,8 +113,8 @@ fun SubjectCard(
             .padding(2.dp),
         shape = RoundedCornerShape(4.dp),
         onClick = {
-            Log.d("aaaaaa", "clicked $cardId")
-            navController.navigate(Destinations.SelectSubjectScreen.route.replace(oldValue = "selected", newValue = cardId.toString()))
+            Log.d("aaaaaa", "clicked $week $time")
+            navController.navigate(Destinations.SelectSubjectScreen.route.replace(oldValue = "{week}", newValue = week).replace(oldValue = "{time}", newValue = time.toString()))
         },
     ) {
         if (subject != null) {
